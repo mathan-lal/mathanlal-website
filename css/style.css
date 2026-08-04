@@ -683,8 +683,8 @@ p{ margin: 0; }
 /* WhatsApp button on mobile */
 @media (max-width: 768px) {
   .whatsapp-float {
-    bottom: 20px;
-    right: 20px;
+    bottom: 80px;
+    right: 16px;
   }
 
   .whatsapp-btn {
