@@ -1,3 +1,12 @@
 [build]
   publish = "."
-  command = "echo 'No build step needed — static HTML site'"
+  command = "npm install"
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+[[redirects]]
+  from = "/submit-form"
+  to = "/.netlify/functions/submit-form"
+  status = 200
