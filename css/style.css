@@ -37,6 +37,11 @@
 
 *, *::before, *::after{ box-sizing: border-box; }
 
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 1.7rem;
+  }
+
 html{ scroll-behavior: smooth; }
 
 body{
