@@ -332,6 +332,7 @@ p{ margin: 0; }
   padding: 32px;
   position: relative;
   width: 100%;
+  overflow: hidden;
 }
 .form-panel::before{
   content:'';
@@ -385,6 +386,9 @@ p{ margin: 0; }
 }
 .check-pill input{ accent-color: var(--indigo); width: 15px; height: 15px; flex-shrink: 0; }
 .form-note{ font-size: 12.5px; color: var(--text-dim); margin-top: 14px; text-align: center; }
+
+/* Netlify honeypot field — visually hidden WITHOUT pushing page width out
+   (the old `left:-9999px` trick is what was causing the horizontal scroll) */
 .hidden-field{
   position: absolute;
   width: 1px; height: 1px;
@@ -628,32 +632,30 @@ p{ margin: 0; }
 
 /* ====================================================
    RESPONSIVE — Mobile (≤ 720px)
-   THE KEY FIX: nav slides LEFT instead of RIGHT
+   Mobile nav is hidden/shown with `transform`, not `left`,
+   so it can never widen the page or trigger horizontal scroll.
    ==================================================== */
 @media (max-width: 720px){
 
-   .nav-links{
-  position: fixed;
-  top: 76px;
-  left: 0;              /* stays at 0, not -100% */
-  right: auto;
-  bottom: 0;
-  width: 100%;
-  background: var(--bg);
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 28px;
-  gap: 22px;
-  transform: translateX(-100%);   /* hides it off-screen instead */
-  transition: transform .25s ease;   /* was: transition: left .25s ease */
-  border-top: 1px solid var(--border-soft);
-  z-index: 150;
-}
-.nav-links.open{
-  transform: translateX(0);   /* was: left: 0 */
-}
-   
-   .nav-links a.active::after{ display: none; }
+  .nav-links{
+    position: fixed;
+    top: 76px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    background: var(--bg);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 28px;
+    gap: 22px;
+    transform: translateX(-100%);
+    transition: transform .25s ease;
+    border-top: 1px solid var(--border-soft);
+    z-index: 150;
+  }
+  .nav-links.open{ transform: translateX(0); }
+  .nav-links a.active::after{ display: none; }
   .nav-toggle{ display: flex; }
   .nav-cta .btn-ghost{ display: none; }
 
