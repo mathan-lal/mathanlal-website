@@ -385,7 +385,15 @@ p{ margin: 0; }
 }
 .check-pill input{ accent-color: var(--indigo); width: 15px; height: 15px; flex-shrink: 0; }
 .form-note{ font-size: 12.5px; color: var(--text-dim); margin-top: 14px; text-align: center; }
-.hidden-field{ position: absolute; left: -9999px; opacity: 0; height: 0; }
+.hidden-field{
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
 
 /* ---------- steps ---------- */
 .steps{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
@@ -624,25 +632,28 @@ p{ margin: 0; }
    ==================================================== */
 @media (max-width: 720px){
 
-  /* ── Nav mobile menu slides from LEFT — no horizontal overflow ── */
-  .nav-links{
-    position: fixed;
-    top: 76px;
-    left: -100%;        /* hidden off the LEFT side */
-    right: auto;
-    bottom: 0;
-    width: 100%;
-    background: var(--bg);
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 28px;
-    gap: 22px;
-    transition: left .25s ease;
-    border-top: 1px solid var(--border-soft);
-    z-index: 150;
-  }
-  .nav-links.open{ left: 0; } /* slides in from left */
-  .nav-links a.active::after{ display: none; }
+   .nav-links{
+  position: fixed;
+  top: 76px;
+  left: 0;              /* stays at 0, not -100% */
+  right: auto;
+  bottom: 0;
+  width: 100%;
+  background: var(--bg);
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 28px;
+  gap: 22px;
+  transform: translateX(-100%);   /* hides it off-screen instead */
+  transition: transform .25s ease;   /* was: transition: left .25s ease */
+  border-top: 1px solid var(--border-soft);
+  z-index: 150;
+}
+.nav-links.open{
+  transform: translateX(0);   /* was: left: 0 */
+}
+   
+   .nav-links a.active::after{ display: none; }
   .nav-toggle{ display: flex; }
   .nav-cta .btn-ghost{ display: none; }
 
