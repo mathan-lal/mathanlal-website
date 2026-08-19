@@ -1,7 +1,5 @@
 // Mathan Lal — shared site behavior
-
 document.addEventListener('DOMContentLoaded', function () {
-
   // Mobile nav toggle
   var toggle = document.querySelector('.nav-toggle');
   var links = document.querySelector('.nav-links');
@@ -15,7 +13,6 @@ document.addEventListener('DOMContentLoaded', function () {
       a.addEventListener('click', function () { links.classList.remove('open'); });
     });
   }
-
   // Scroll reveal
   var revealEls = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window && revealEls.length) {
@@ -31,7 +28,6 @@ document.addEventListener('DOMContentLoaded', function () {
   } else {
     revealEls.forEach(function (el) { el.classList.add('is-visible'); });
   }
-
   // Portfolio filter (portfolio.html only)
   var filterBtns = document.querySelectorAll('.filter-btn');
   var pfCards = document.querySelectorAll('.pf-card');
@@ -48,7 +44,6 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     });
   }
-
   // Simple client-side validation feedback (forms still submit to Netlify)
   document.querySelectorAll('form[data-validate]').forEach(function (form) {
     form.addEventListener('submit', function (e) {
@@ -67,5 +62,25 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
   });
+});
 
+// TEMPORARY DEBUG — finds what's causing horizontal scroll on mobile.
+// Delete this whole block once the issue is found and fixed.
+window.addEventListener('load', function () {
+  setTimeout(function () {
+    var vw = document.documentElement.clientWidth;
+    var offenders = [];
+    document.querySelectorAll('*').forEach(function (el) {
+      if (el.scrollWidth > vw + 2) {
+        offenders.push(
+          el.tagName + (el.className ? '.' + String(el.className).replace(/\s+/g, '.') : '') +
+          ' → ' + el.scrollWidth + 'px'
+        );
+      }
+    });
+    var box = document.createElement('div');
+    box.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:99999;background:red;color:#fff;font-size:11px;padding:8px;max-height:40vh;overflow:auto;';
+    box.textContent = 'Viewport: ' + vw + 'px | Offenders: ' + (offenders.length ? offenders.join(' | ') : 'none found');
+    document.body.appendChild(box);
+  }, 500);
 });
