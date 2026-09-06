@@ -66,21 +66,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // TEMPORARY DEBUG — finds what's causing horizontal scroll on mobile.
 // Delete this whole block once the issue is found and fixed.
-window.addEventListener('load', function () {
-  setTimeout(function () {
-    var vw = document.documentElement.clientWidth;
-    var offenders = [];
-    document.querySelectorAll('*').forEach(function (el) {
-      if (el.scrollWidth > vw + 2) {
-        offenders.push(
-          el.tagName + (el.className ? '.' + String(el.className).replace(/\s+/g, '.') : '') +
-          ' → ' + el.scrollWidth + 'px'
-        );
-      }
-    });
-    var box = document.createElement('div');
-    box.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:99999;background:red;color:#fff;font-size:11px;padding:8px;max-height:40vh;overflow:auto;';
-    box.textContent = 'Viewport: ' + vw + 'px | Offenders: ' + (offenders.length ? offenders.join(' | ') : 'none found');
-    document.body.appendChild(box);
-  }, 500);
-});
+// window.addEventListener('load', function () {
+//   setTimeout(function () {
+//     var vw = document.documentElement.clientWidth;
+//     var offenders = [];
+//     document.querySelectorAll('*').forEach(function (el) {
+//       if (el.scrollWidth > vw + 2) {
+//         offenders.push(
+//           el.tagName + (el.className ? '.' + String(el.className).replace(/\s+/g, '.') : '') +
+//           ' → ' + el.scrollWidth + 'px'
+//         );
+//       }
+//     });
+//     var box = document.createElement('div');
+//     box.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:99999;background:red;color:#fff;font-size:11px;padding:8px;max-height:40vh;overflow:auto;';
+//     box.textContent = 'Viewport: ' + vw + 'px | Offenders: ' + (offenders.length ? offenders.join(' | ') : 'none found');
+//     document.body.appendChild(box);
+//   }, 500);
+// });
